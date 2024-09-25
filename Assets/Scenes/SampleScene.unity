@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd9b7aaf19b3814a882b308bca10d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionDuration: 0
+  _transitionDuration: 0.5
   _inEditMode: 0
   _isGrabbed: 0
 --- !u!114 &142121307
@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 202.93}
   m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840007755
@@ -468,6 +468,50 @@ MonoBehaviour:
   _secondsArrow: {fileID: 960768360}
   _minutesArrow: {fileID: 1443087472}
   _hoursArrow: {fileID: 142121306}
+--- !u!1 &927191993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927191994}
+  - component: {fileID: 927191995}
+  m_Layer: 0
+  m_Name: TimeTickService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927191994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927191993}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337945155}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927191995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927191993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3319d35196c4143883a6ebc8b18fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &960768358
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd9b7aaf19b3814a882b308bca10d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionDuration: 0
+  _transitionDuration: 0.5
   _inEditMode: 0
   _isGrabbed: 0
 --- !u!114 &960768361
@@ -591,6 +635,7 @@ MonoBehaviour:
   _clockViews:
   - {fileID: 840007757}
   _timeRequestService: {fileID: 1606573711}
+  _timeTickService: {fileID: 927191995}
 --- !u!4 &1337945155
 Transform:
   m_ObjectHideFlags: 0
@@ -605,6 +650,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1606573710}
+  - {fileID: 927191994}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1410322316
@@ -797,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd9b7aaf19b3814a882b308bca10d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionDuration: 0
+  _transitionDuration: 0.5
   _inEditMode: 0
   _isGrabbed: 0
 --- !u!1 &1606573709

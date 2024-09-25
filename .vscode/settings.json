@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Pusto Studio Test (Clocks).sln"
+    "dotnet.defaultSolution": "Pusto Studio Test (Clocks).sln",
+    "git.ignoreLimitWarning": true
 }

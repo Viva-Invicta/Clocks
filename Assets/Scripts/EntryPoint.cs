@@ -10,19 +10,15 @@ namespace Clocks
         [SerializeField]
         private TimeRequestService _timeRequestService;
 
+        [SerializeField]
+        private TimeTickService _timeTickService;
+
         private void Awake()
         {   
-            _timeRequestService.TimeUpdated += HandleTimeUpdated;
+            var timeHandler = new TimeHandler(_timeRequestService, _timeTickService, _clockViews);
 
-            _timeRequestService.UpdateTime();
+            timeHandler.Initialize();
         }
 
-        private void HandleTimeUpdated()
-        {
-            foreach (var clockView in _clockViews)
-            {
-                clockView.SetTime(_timeRequestService.LastRecievedTime);
-            }
-        }
     }
 }
