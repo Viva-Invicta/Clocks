@@ -12,9 +12,21 @@ namespace Clocks
 
         public override void SetTime(DateTime time)
         {
-            _secondsArrow.SetDistance(time.Second / 60f);
-            _minutesArrow.SetDistance(time.Minute / 60f);
-            _hoursArrow.SetDistance(time.Hour / 12f);
+            var secondsArrowPosition = time.Second / 60f;
+            var minutesArrowPosition = time.Minute / 60f + secondsArrowPosition / 60f;
+
+            var hour = time.Hour;
+            if (hour > 12)
+            {
+                hour -= 12;
+            }
+
+            var hourArrowPosition = time.Hour / 12f + minutesArrowPosition / 12f;
+            
+            _secondsArrow.SetProgress(secondsArrowPosition);
+            _minutesArrow.SetProgress(minutesArrowPosition);
+            _hoursArrow.SetProgress(hourArrowPosition);
         }
+
     }
 }

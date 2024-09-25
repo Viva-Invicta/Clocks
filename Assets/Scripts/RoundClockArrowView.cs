@@ -47,8 +47,8 @@ namespace Clock
             }
         }
 
-        //distance is [0, 1]
-        public void SetDistance(float distance)
+        //progress is [0, 1]
+        public void SetProgress(float distance)
         {
             if (_rotationTween != null)
             {
