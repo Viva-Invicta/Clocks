@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +12,10 @@ namespace Clock
         public event Action TurnedCounterclockwise;
 
         [SerializeField] private float _transitionDuration;
-        [SerializeField] private bool _inEditMode;    
 
+        private bool _inEditMode;    
         private bool _isGrabbed;
+
         private float _progress;
         private Tweener _rotationTween;
 

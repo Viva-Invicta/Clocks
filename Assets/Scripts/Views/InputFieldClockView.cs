@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +14,7 @@ namespace Clocks
         private void OnEnable()
         {
             _inputField.DeactivateInputField();
-            
+
             _inputField.onValueChanged.AddListener(OnTimeInputChanged);
             _inputField.interactable = false;
         }

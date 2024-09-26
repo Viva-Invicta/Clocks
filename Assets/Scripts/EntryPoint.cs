@@ -20,9 +20,9 @@ namespace Clocks
 
         private void Awake()
         {   
-            var timeHandler = new TimeHandler(_timeRequestService, _timeTickService, _clockViews, _editButtonView);
+            var clocksHandler = new ClocksHandler(_timeRequestService, _timeTickService, _clockViews, _editButtonView);
 
-            timeHandler.Initialize();
+            clocksHandler.Initialize();
         }
 
     }

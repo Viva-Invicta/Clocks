@@ -2,7 +2,7 @@ using System;
 
 namespace Clocks
 {
-    public class TimeHandler
+    public class ClocksHandler
     {
         private readonly TimeRequestService _timeRequestService;
         private readonly TimeTickService _timeTickService;
@@ -14,7 +14,7 @@ namespace Clocks
 
         private DateTime _currentTime = DateTime.MinValue;
 
-        public TimeHandler(TimeRequestService timeRequestService, TimeTickService timeTickService, ClockView[] clocks, EditButtonView editButton)
+        public ClocksHandler(TimeRequestService timeRequestService, TimeTickService timeTickService, ClockView[] clocks, EditButtonView editButton)
         {
             _timeRequestService = timeRequestService;
             _timeTickService = timeTickService;
