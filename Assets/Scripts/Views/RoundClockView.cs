@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Clock;
-using TMPro;
 using UnityEngine;
 
 namespace Clocks
@@ -20,9 +16,9 @@ namespace Clocks
 
         private void OnEnable()
         {
-            _secondsArrow.ProgressUpdated += HandleSecondsArrowProgressChange;
-            _minutesArrow.ProgressUpdated += HandleMinutesArrowProgressChange;
-            _hoursArrow.ProgressUpdated += HandleHoursArrowProgressChange;
+            _secondsArrow.OnEdit += HandleSecondsArrowEdit;
+            _minutesArrow.OnEdit += HandleMinutesArrowEdit;
+            _hoursArrow.OnEdit += HandleHoursArrowEdit;
 
             _secondsArrow.TurnedClockwise += HandleSecondsArrowClockwise;
             _minutesArrow.TurnedClockwise += HandleMinutesArrowClockwise;
@@ -76,71 +72,40 @@ namespace Clocks
             }
         }
 
-        private void HandleSecondsArrowClockwise()
-        {
-            var newTime = _lastTime + TimeSpan.FromMinutes(1);
-            SetLastTime(true, newTime);
-        }   
+        private void HandleSecondsArrowClockwise() => SetLastTime(true, _lastTime + TimeSpan.FromMinutes(1));
+        private void HandleSecondsArrowCounterwise() => SetLastTime(true, _lastTime - TimeSpan.FromMinutes(1));
 
-        private void HandleSecondsArrowCounterwise()
-        {
-            var newTime = _lastTime - TimeSpan.FromMinutes(1);
-            SetLastTime(true, newTime);
-        }   
+        private void HandleMinutesArrowClockwise() => SetLastTime(true, _lastTime + TimeSpan.FromHours(1));
+        private void HandleMinutesArrowCounterwise() => SetLastTime(true, _lastTime - TimeSpan.FromHours(1));
 
-        private void HandleMinutesArrowClockwise()
-        {   
-            var newTime = _lastTime + TimeSpan.FromHours(1);
-            SetLastTime(true, newTime);
-        }
+        private void HandleHoursArrowClockwise() => SetLastTime(true, _lastTime + TimeSpan.FromHours(12));
+        private void HandleHoursArrowCounterwise() => SetLastTime(true, _lastTime - TimeSpan.FromHours(12));
 
-        private void HandleMinutesArrowCounterwise()
-        {
-            var newTime = _lastTime - TimeSpan.FromHours(1);
-            SetLastTime(true, newTime);
-        }
-
-        private void HandleHoursArrowClockwise()
-        {
-            var newTime = _lastTime + TimeSpan.FromHours(12);
-            SetLastTime(true, newTime);
-        }
-
-        private void HandleHoursArrowCounterwise()
-        {
-            var newTime = _lastTime - TimeSpan.FromHours(12);
-            SetLastTime(true, newTime);
-        }
-
-        private void HandleSecondsArrowProgressChange()
+        private void HandleSecondsArrowEdit()
         {
             var newTime = _lastTime - TimeSpan.FromSeconds(_lastTime.Second);
             newTime += TimeSpan.FromSeconds(_secondsArrow.Progress * 60);
-            if (newTime.Minute != _lastTime.Minute)
-            {
-                newTime -= TimeSpan.FromMinutes(1);
-            }
 
-            UnityEngine.Debug.Log(newTime + "**");
             SetLastTime(true, newTime);
         }
 
-        private void HandleMinutesArrowProgressChange()
+        private void HandleMinutesArrowEdit()
         {
-            var newTime = _lastTime - TimeSpan.FromMinutes(_lastTime.Minute);
+            var newTime = _lastTime - TimeSpan.FromMinutes(_lastTime.Minute) - TimeSpan.FromSeconds(_lastTime.Second);
             newTime += TimeSpan.FromMinutes(_minutesArrow.Progress * 60);
 
             SetLastTime(true, newTime);
         }
 
-        private void HandleHoursArrowProgressChange()
+        private void HandleHoursArrowEdit()
         {
-            var newTime = _lastTime - TimeSpan.FromHours(_lastTime.Hour);
-            if (_lastTime.Hour > 12)
+            var newTime = _lastTime.Date;
+            newTime += TimeSpan.FromHours(Mathf.Clamp(_hoursArrow.Progress * 12, 0f, 12f));
+            
+            if (_lastTime.Hour >= 12)
             {
                 newTime += TimeSpan.FromHours(12);
             }
-            newTime += TimeSpan.FromHours(_hoursArrow.Progress * 12);
 
             SetLastTime(true, newTime);
         }

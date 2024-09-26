@@ -8,7 +8,7 @@ namespace Clock
 {
     public class RoundClockArrowView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        public event Action ProgressUpdated;
+        public event Action OnEdit;
         public event Action TurnedClockwise;
         public event Action TurnedCounterclockwise;
 
@@ -49,42 +49,47 @@ namespace Clock
         {
             if (_isGrabbed)
             {
-                var mouseWorldPosition =  Input.mousePosition;
-                var direction = mouseWorldPosition - transform.position;
+                HandleGrabbed();
+            }
+        }
 
-                //angle between x axis and vector from mouse to arrow
-                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        private void HandleGrabbed()
+        {
+            var mouseWorldPosition = Input.mousePosition;
+            var direction = mouseWorldPosition - transform.position;
 
-                //we need this magic number to make arrow point to the direction of the mouse
-                //(or just use sprites that's oriented left-to-right, but that's too easy)
-                angle -= 90;
+            //angle between x axis and vector from mouse to arrow
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-                if (angle < 0)
+            //we need this magic number to make arrow point to the direction of the mouse
+            //(or just use sprites that's oriented left-to-right, but that's too easy)
+            angle -= 90;
+
+            if (angle < 0)
+            {
+                angle = 360 + angle;
+            }
+
+            //vector3.forward is z axis (in this case)
+            //so we create a quaternion rotation by angle around this axis
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            var newProgress = 1 - (angle / 360);
+
+            if (_progress != newProgress)
+            {
+                OnEdit?.Invoke();
+
+                if (_progress - newProgress > 0.6f)
                 {
-                    angle = 360 + angle;
+                    TurnedClockwise?.Invoke();
+                }
+                else if (_progress - newProgress < -0.6f)
+                {
+                    TurnedCounterclockwise?.Invoke();
                 }
 
-                //vector3.forward is z axis (in this case)
-                //so we create a quaternion rotation by angle around this axis
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-                var newProgress = 1 - (angle / 360);
-
-                if (_progress != newProgress)
-                {
-                    ProgressUpdated?.Invoke();
-                    
-                    if (_progress - newProgress > 0.6f)
-                    {
-                        TurnedClockwise?.Invoke();
-                    }
-                    else if (_progress - newProgress < -0.6f)
-                    {
-                        TurnedCounterclockwise?.Invoke();
-                    }
-
-                    _progress = newProgress;
-                }
+                _progress = newProgress;
             }
         }
 
