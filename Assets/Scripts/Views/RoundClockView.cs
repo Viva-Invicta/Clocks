@@ -35,7 +35,7 @@ namespace Clocks
             var minutesArrowPosition = time.Minute / 60f + secondsArrowPosition / 60f;
 
             var hour = time.Hour;
-            if (hour > 12)
+            if (hour >= 12)
             {
                 hour -= 12;
             }
